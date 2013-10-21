@@ -1,0 +1,16 @@
+A Very Basic Matrix & Vector Library In Scala
+
+
+Currently missing some major features in matrix and vector algebra.
+
+The following still need implementation:
+
+Vector cross product
+
+Matrix Row-Echelon solver
+
+Matrix eigenvalues and eigenvectors
+
+General error handling and checks for nearly ALL functions
+
+Test Framework
