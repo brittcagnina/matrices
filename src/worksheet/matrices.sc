@@ -23,60 +23,62 @@ object matrices {
 		>(1, 0, 0),
 		>(0, 1, 0),
 		>(0, 0, 1)
-	)                                         //> m1  : worksheet.RowMatrix = worksheet.RowMatrix@7ddc5f7
+	)                                         //> m1  : worksheet.RowMatrix = worksheet.RowMatrix@60cd375d
 	m1.view                                   //> 
                                                   //| 
                                                   //| |1.0, 0.0, 0.0|
                                                   //| |0.0, 1.0, 0.0|
                                                   //| |0.0, 0.0, 1.0|
                                                   //| res0: Any = ()
-  m1.getNthColumn(1).dot(m1.getNthRow(0))         //> res1: Double = 0.0
+  m1.*(>(1, 2, 1)).view                           //> res1: String = <1.0, 2.0, 1.0>
+ 
+  m1.getNthColumn(1).dot(m1.getNthRow(0))         //> res2: Double = 0.0
   
- val m2 = rowMatrix(
+  val m2 = rowMatrix(
 		>(1, 4, 7),
 		>(3, 0, 5),
 		>(-1, 9, 11)
-	)                                         //> m2  : worksheet.RowMatrix = worksheet.RowMatrix@26767bef
+	)                                         //> m2  : worksheet.RowMatrix = worksheet.RowMatrix@3c1145a4
   m2.view                                         //> 
                                                   //| 
                                                   //| |1.0, 4.0, 7.0|
                                                   //| |3.0, 0.0, 5.0|
                                                   //| |-1.0, 9.0, 11.0|
-                                                  //| res2: Any = ()
+                                                  //| res3: Any = ()
   m2.cofactor.view                                //> 
                                                   //| 
                                                   //| |-45.0, -38.0, 27.0|
                                                   //| |19.0, 18.0, -13.0|
                                                   //| |20.0, 16.0, -12.0|
-                                                  //| res3: Any = ()
-  m2.det                                          //> res4: Double = -8.0
+                                                  //| res4: Any = ()
+  m2.det                                          //> res5: Double = -8.0
   (m2 * m2.adj.scale(1/m2.det)).view              //> 
                                                   //| 
                                                   //| |1.0, 0.0, 0.0|
                                                   //| |0.0, 1.0, 0.0|
                                                   //| |0.0, 0.0, 1.0|
-                                                  //| res5: Any = ()
-  m2.getNthColumn(2).view                         //> res6: String = <7.0, 5.0, 11.0>
-  val m4 = m1 * m2                                //> m4  : worksheet.Matrix = worksheet.ColumnMatrix@c5ec9da
+                                                  //| res6: Any = ()
+  m2.getNthColumn(2).view                         //> res7: String = <7.0, 5.0, 11.0>
+  val m4 = m1 * m2                                //> m4  : worksheet.Matrix = worksheet.ColumnMatrix@49940c14
   m4.view                                         //> 
                                                   //| 
                                                   //| |1.0, 4.0, 7.0|
                                                   //| |3.0, 0.0, 5.0|
                                                   //| |-1.0, 9.0, 11.0|
-                                                  //| res7: Any = ()
-  val m5 = m4.trans                               //> m5  : worksheet.Matrix = worksheet.RowMatrix@23160d8e
+                                                  //| res8: Any = ()
+  val m5 = m4.trans                               //> m5  : worksheet.Matrix = worksheet.RowMatrix@16a51ac9
   m5.view                                         //> 
                                                   //| 
                                                   //| |1.0, 3.0, -1.0|
                                                   //| |4.0, 0.0, 9.0|
                                                   //| |7.0, 5.0, 11.0|
-                                                  //| res8: Any = ()
-  m5.isReducedRowEchelon                          //> res9: Boolean = false
+                                                  //| res9: Any = ()
+  m5.isReducedRowEchelon                          //> res10: Boolean = false
   m5.getMinor(0, 2).view                          //> 
                                                   //| 
                                                   //| |4.0, 0.0|
                                                   //| |7.0, 5.0|
-                                                  //| res10: Any = ()
+                                                  //| res11: Any = ()
   
   
   m4.add(m5).view                                 //> 
@@ -84,26 +86,26 @@ object matrices {
                                                   //| |2.0, 7.0, 6.0|
                                                   //| |7.0, 0.0, 14.0|
                                                   //| |6.0, 14.0, 22.0|
-                                                  //| res11: Any = ()
-  val m8 = m4.add(m5)                             //> m8  : worksheet.Matrix = worksheet.RowMatrix@f530ff3
-  m4.add(m5).det                                  //> res12: Double = -294.0
-  val m9 = m4.add(m5).inverse                     //> m9  : worksheet.Matrix = worksheet.RowMatrix@163c2261
+                                                  //| res12: Any = ()
+  val m8 = m4.add(m5)                             //> m8  : worksheet.Matrix = worksheet.RowMatrix@48e472f8
+  m4.add(m5).det                                  //> res13: Double = -294.0
+  val m9 = m4.add(m5).inverse                     //> m9  : worksheet.Matrix = worksheet.RowMatrix@e381d2b
  (m8 * m9).view                                   //> 
                                                   //| 
                                                   //| |1.0, 0.0, 0.0|
                                                   //| |0.0, 0.9999999999999999, 0.0|
                                                   //| |0.0, 0.0, 1.0|
-                                                  //| res13: Any = ()
+                                                  //| res14: Any = ()
  
-  m4.isReducedRowEchelon                          //> res14: Boolean = false
+  m4.isReducedRowEchelon                          //> res15: Boolean = false
   
-  rowMatrix(null).view                            //> res15: Any = | E |
+  rowMatrix(null).view                            //> res16: Any = | E |
   
-  val v1 = >(1, 0, 0)                             //> v1  : worksheet.Vector = worksheet.Vector@45f519ae
-  v1.view                                         //> res16: String = <1.0, 0.0, 0.0>
+  val v1 = >(1, 0, 0)                             //> v1  : worksheet.Vector = worksheet.Vector@602f958
+  v1.view                                         //> res17: String = <1.0, 0.0, 0.0>
   
-  val v2 = v1.add(>(2,5,6))                       //> v2  : worksheet.Vector = worksheet.Vector@5e691263
-  v2.view                                         //> res17: String = <3.0, 5.0, 6.0>
+  val v2 = v1.add(>(2,5,6))                       //> v2  : worksheet.Vector = worksheet.Vector@2d40037d
+  v2.view                                         //> res18: String = <3.0, 5.0, 6.0>
 }
 
 abstract class Matrix {
@@ -123,6 +125,11 @@ abstract class Matrix {
 		}
 	}
 	
+	def *(vector: Vector): Vector = {
+		val product = (for(i <- 0 to this.numRows - 1) yield this.getNthRow(i).dot(vector)).toList
+		new Vector(product)
+	}
+	
 	def *(that: Matrix): Matrix = {
 		if(this.numColumns != that.numRows) new RowMatrix(null)
 		else {
@@ -134,7 +141,7 @@ abstract class Matrix {
 						iter(count + 1, vector.append(this.getNthRow(count).dot(that.getNthColumn(i))))
 					}
 				}
-				//Try ListBuffer
+				//Mutation
 				rows = rows ::: List(iter(0, new Vector(List())))
 			}
 			new ColumnMatrix(rows)
@@ -153,7 +160,6 @@ abstract class Matrix {
 			new RowMatrix(rows.toList)
 	}
 	
-	// ListBuffer Example
 	def trans: Matrix = {
 		val columns = (for(i <- 0 to this.numColumns - 1) yield this.getNthColumn(i)).toList
 		new RowMatrix(columns.toList)
@@ -203,12 +209,10 @@ abstract class Matrix {
 	
 	// Returns Minor Matrix
 	def getMinor(nthRow: Int, nthColumn: Int): Matrix = {
-			var rows = ListBuffer[Vector]()
-			for(i <- 0 to numRows - 1) {
-				if(i != nthRow) {
-					rows += this.getNthRow(i).remove(nthColumn)
-				}
-			}
+			var rows = (
+				for(i <- 0 to numRows - 1; if(i != nthRow))
+				yield this.getNthRow(i).remove(nthColumn)
+			)
 			new RowMatrix(rows.toList)
 	}
 	

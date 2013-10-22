@@ -49,6 +49,11 @@ abstract class Matrix {
 		}
 	}
 	
+	def *(vector: Vector): Vector = {
+		val product = (for(i <- 0 to this.numRows - 1) yield this.getNthRow(i).dot(vector)).toList
+		new Vector(product)
+	}
+	
 	def *(that: Matrix): Matrix = {
 		if(this.numColumns != that.numRows) new RowMatrix(null)
 		else {
@@ -60,7 +65,7 @@ abstract class Matrix {
 						iter(count + 1, vector.append(this.getNthRow(count).dot(that.getNthColumn(i))))
 					}
 				}
-				//Try ListBuffer
+				//Mutation
 				rows = rows ::: List(iter(0, new Vector(List())))
 			}
 			new ColumnMatrix(rows)
@@ -79,7 +84,6 @@ abstract class Matrix {
 			new RowMatrix(rows.toList)
 	}
 	
-	// ListBuffer Example
 	def trans: Matrix = {
 		val columns = (for(i <- 0 to this.numColumns - 1) yield this.getNthColumn(i)).toList
 		new RowMatrix(columns.toList)
@@ -129,12 +133,10 @@ abstract class Matrix {
 	
 	// Returns Minor Matrix
 	def getMinor(nthRow: Int, nthColumn: Int): Matrix = {
-			var rows = ListBuffer[Vector]()
-			for(i <- 0 to numRows - 1) {
-				if(i != nthRow) {
-					rows += this.getNthRow(i).remove(nthColumn)
-				}
-			}
+			var rows = (
+				for(i <- 0 to numRows - 1; if(i != nthRow))
+				yield this.getNthRow(i).remove(nthColumn)
+			)
 			new RowMatrix(rows.toList)
 	}
 	
